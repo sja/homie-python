@@ -10,6 +10,7 @@ TEMPERATURE_INTERVAL = 60
 
 Homie = homie.Homie("homie-python.json")
 temperatureNode = Homie.Node("temperature", "temperature")
+temperatureNode.addProperty('value')
 
 
 def getCpuTemperature():
@@ -26,7 +27,7 @@ def main():
     while True:
         temperature = getCpuTemperature()
         logger.info("Temperature: {:0.2f} °C".format(temperature))
-        Homie.setNodeProperty(temperatureNode, "degrees", temperature, True)
+        Homie.setNodeProperty(temperatureNode, "value", temperature, True)
         time.sleep(TEMPERATURE_INTERVAL)
 
 if __name__ == '__main__':

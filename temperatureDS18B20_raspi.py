@@ -20,6 +20,7 @@ TEMPERATURE_INTERVAL = 60
 
 Homie = homie.Homie("homie-python.json")
 temperatureNode = Homie.Node("temperature", "temperature")
+temperatureNode.addProperty('degrees').addProperty('unit')
 
 def read_temp_raw():
     f = open(device_file, 'r')
@@ -42,6 +43,7 @@ def read_temp():
 def main():
     Homie.setFirmware("raspi-temperatureDS18B20", "1.0.0")
     Homie.setup()
+    Homie.setNodeProperty(temperatureNode, "unit", "celsius", True)
 
     while True:
         temperature = read_temp()
@@ -54,5 +56,4 @@ if __name__ == '__main__':
         main()
     except (KeyboardInterrupt, SystemExit):
         logger.info("Quitting.")
-		
-		
+
